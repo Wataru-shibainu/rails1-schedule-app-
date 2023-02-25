@@ -1,0 +1,45 @@
+<h3>予定の新規追加</h3>
+
+<% if flash[:noncreation] %>
+ <p class="noncreation"><%= flash[:noncreation] %></p>
+<% end %>
+
+<%= render "shared/error", obj: @user %>
+
+<%= form_with model: @user do |f| %>
+  <table>
+    <tr>
+      <th><%= f.label :title,"タイトル" %></th>
+      <td><%= f.text_field :title %></td>
+    </tr>
+
+    <tr>
+      <th><%= f.label :startdate ,"開始日" %></th>
+      <td><%= f.date_field :startdate %></td>
+      
+    </tr>
+
+    <tr>
+      <th><%= f.label :enddate ,"終了日" %></th>
+      <td><%= f.date_field :enddate %></td>
+    </tr>
+
+    <tr>
+      <th><%= f.label :memo ,"スケジュールメモ" %></th>
+      <td><%= f.text_area :memo %></td>
+    </tr>
+  </table>
+
+  <p>終日の場合はチェックを入れてください</p>
+  <%= f.check_box :allday %>
+  <%= f.label :allday, "終日" %>
+
+
+  <div>
+    <ul>
+      <li><%= f.submit "保存"%></li>
+      <li><%= link_to "予定一覧に戻る", :users %></li>
+    </ul>
+  </div>
+<% end %>
+  
