@@ -1,0 +1,57 @@
+<h3>予定一覧</h3>
+<p>↓新規追加をクリックし、予定を作成しましょう</p>
+<p><%= link_to "新規追加", :new_user %></p>
+
+<% if flash[:creation] %>
+ <p class="creation"><%= flash[:creation] %></p>
+<% end %>
+
+<% if flash[:edit] %>
+ <p class="edit"><%= flash[:edit] %></p>
+<% end %>
+
+<% if flash[:delete] %>
+ <p class="delete"><%= flash[:delete] %></p>
+<% end %>
+
+<p>現在の予定合計：<%= @count %>件　（本日の日付：<%= @date %>）</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>タイトル</th>
+      <th>開始日</th>
+      <th>終了日</th>
+      <th>終日</th>
+      <th>更新日時</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.title %></td>
+        <td><%= user.startdate.strftime("%Y/%m/%d") %></td>
+        <td><%= user.enddate.strftime("%Y/%m/%d") %></td>
+        <td><% if user.allday == true %>
+              ○
+              <% else %>
+            <%  end %>
+        </td>
+        <td><%= user.updated_at.to_s(:datetime_jp) %></td>
+        <td><%= link_to "詳細", user %></td>
+        <td><%= link_to "編集", [:edit, user] %></td>
+        <td>
+          <%= link_to "削除", user, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
